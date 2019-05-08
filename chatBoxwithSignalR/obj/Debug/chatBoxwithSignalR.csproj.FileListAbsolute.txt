@@ -1,0 +1,1 @@
+c:\users\ayomikun\documents\visual studio 2015\Projects\chatBoxwithSignalR\chatBoxwithSignalR\obj\Debug\chatBoxwithSignalR.csprojResolveAssemblyReference.cache
