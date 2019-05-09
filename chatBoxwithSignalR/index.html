@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<b>Type your message: </b>
+    <div class="container">
+        <input type="text" id="message" />
+        <input type="button" id="sendmessage" value="send" />
+        <input type="hidden" id="displayname" />
+        <ul id="discussion"></ul>
+    </div>
+
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <!--<script src="signalr/hubs"></script>-->
+    <script type="text/javascript">
+        $(function () {
+            // steps
+            //declear a proxy to refrence the hub
+            //create a function that the hub can call to broadcast the message
+            //html encode  display name and message
+            //add the message to the page
+
+            //get the username 
+            //set the initial focus to the message box
+            //start the connection
+            //call the send method
+            //clear text box and reset focus for the next message
+
+            $('#displayname').val(prompt('Enter your name:', ''));
+            $('#message').focus();
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    $('#message').val('').focus();
+                });
+            });
+
+            var chat = $.connection.chatHub;
+            chat.client.broadcastMessage = function (name, message) {
+                var encodeName = $('<div />').text(name).html();
+                var encodeMsg = $('<div />').text(message).html();
+                $('#discussion').append('<li><strong>' + encodeName + '</strong>:&nbsp;&nbsp;' + encodeMsg + '</li>');
+            };
+           
+
+        });
+    </script>
+</body>
+</html>
